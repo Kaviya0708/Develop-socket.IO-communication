@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket.IO Communication</title>
+</head>
+<body>
+
+<h2>Socket.IO Demo</h2>
+
+<input type="text" id="msg" placeholder="Enter Message">
+
+<button onclick="sendMessage()">
+    Send
+</button>
+
+<p id="response"></p>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+<script>
+const socket = io("http://localhost:3000");
+
+function sendMessage() {
+    const message =
+        document.getElementById("msg").value;
+
+    socket.emit(
+        "messageFromClient",
+        message
+    );
+}
+
+socket.on(
+    "messageFromServer",
+    function(data) {
+        document.getElementById(
+            "response"
+        ).innerHTML = data;
+    }
+);
+</script>
+
+</body>
+</html>
